@@ -15,23 +15,83 @@
       crossorigin="anonymous"
     ></script>
 
-    <title>Document</title>
+    <style>
+      /* Background styling */
+      body {
+        background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+        height: 100vh;
+      }
+
+      /* Form shadow and hover effects */
+      form {
+        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease-in-out;
+      }
+
+      form:hover {
+        box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.3);
+        transform: translateY(-5px);
+      }
+
+      /* Input fields styling */
+      input:focus, select:focus {
+        border-color: #28a745 !important;
+        outline: none;
+        box-shadow: 0 0 8px #28a745;
+      }
+
+      /* Button hover effect */
+      button {
+        transition: background-color 0.3s ease-in-out, transform 0.3s;
+      }
+
+      button:hover {
+        background-color: #218838;
+        transform: translateY(-3px);
+      }
+
+      /* Link hover effect */
+      a {
+        text-decoration: none;
+        color: #fff;
+        transition: color 0.3s ease-in-out;
+      }
+
+      a:hover {
+        color: #218838;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        form {
+          width: 75% !important;
+        }
+      }
+
+      @media (max-width: 576px) {
+        form {
+          width: 90% !important;
+        }
+      }
+    </style>
+
+    <title>Register Page</title>
   </head>
   <body>
     <div class="d-flex justify-content-center align-items-center vh-100">
       <form
         action="signup.php"
         method="post"
-        class="w-50 bg-warning p-4 rounded-md"
+        class="w-50 p-4 rounded"
         onsubmit="return validate()"
       >
-        <h3 class="text-center">SiguUp Here !</h3>
-        <div class="w-50 m-auto">
+        <h3 class="text-center text-dark mb-4">Sign Up Here!</h3>
+        <div class="w-75 m-auto">
           <input
             type="text"
             name="username"
             placeholder="Enter Username"
-            class="form-control mt-4 shadow-none border-0"
+            class="form-control mt-4 shadow-none py-2"
             required
           />
           <input
@@ -39,7 +99,7 @@
             type="password"
             name="password"
             placeholder="Enter Password"
-            class="form-control mt-2 shadow-none border-0"
+            class="form-control mt-3 shadow-none py-2"
             required
           />
           <input
@@ -47,22 +107,26 @@
             type="password"
             name="pass2"
             placeholder="Confirm Password"
-            class="form-control mt-2 shadow-none border-0"
+            class="form-control mt-3 shadow-none py-2"
             required
           />
           <select
             name="usertype"
-            class="form-control mt-2 shadow-none border-0"
+            class="form-control mt-3 shadow-none py-2"
             required
           >
+            <option value="" disabled selected>Select User Type</option>
             <option>Vendor</option>
+            <option>Admin</option>
             <option>Customer</option>
           </select>
+
           <div class="text-center">
-            <button class="btn btn-success mt-3">SignUp</button>
+            <button class="btn btn-success mt-4 w-100 py-2">Sign Up</button>
           </div>
-          <div>
-            <a href="login.html">Login Here...</a>
+
+          <div class="text-center mt-3">
+            <a href="login.html" class="text-dark">Login Here...</a>
           </div>
         </div>
       </form>
@@ -70,16 +134,14 @@
 
     <script>
       function validate() {
-        pass1 = document.getElementById("pass1").value;
-        pass2 = document.getElementById("pass2").value;
-        console.log(pass1.value);
-        console.log(pass2.value);
+        let pass1 = document.getElementById("pass1").value;
+        let pass2 = document.getElementById("pass2").value;
 
         if (pass1 === pass2) {
-          return true; // Allow form submission
+          return true;
         } else {
-          alert("Passwords don't match");
-          return false; // Prevent form submission
+          alert("Passwords do not match");
+          return false;
         }
       }
     </script>

@@ -22,7 +22,7 @@ if (move_uploaded_file($source, $target)) {
 
     // Execute the query and check for success
     if (mysqli_query($conn, $query)) {
-        header("location: products.php");
+        header("Location: products.php");
         exit();
     } else {
         echo "Error: " . mysqli_error($conn);

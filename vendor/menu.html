@@ -14,21 +14,55 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
-    <title>Document</title>
+    <style>
+      /* Hover and focus effects for buttons */
+      button {
+        transition: all 0.3s ease;
+      }
+      button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Adding some padding and space for a cleaner look */
+      .nav-buttons {
+        gap: 20px;
+      }
+
+      /* Adjust layout for mobile screens */
+      @media (max-width: 768px) {
+        .d-flex {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .nav-buttons {
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .bg-primary {
+          padding: 1rem;
+        }
+      }
+    </style>
+    <title>Dashboard</title>
   </head>
   <body>
-    <div class="d-flex p-3 bg-primary justify-content-between">
-      <div class="d-flex gap-3">
+    <div class="d-flex p-3 bg-primary justify-content-between px-5 align-items-center">
+      <!-- Buttons for navigation -->
+      <div class="d-flex nav-buttons">
         <a href="home.php">
-          <button class="btn btn-warning">Add Product</button></a
-        >
-        <a href="view.php"
-          ><button class="btn btn-warning">View Product</button></a
-        >
-        <a href="order.php"
-          ><button class="btn btn-warning">View Order</button></a
-        >
+          <button class="btn btn-warning">Add Product</button>
+        </a>
+        <a href="products.php">
+          <button class="btn btn-warning">Manage Products</button>
+        </a>
+        <a href="vendorOrder.php">
+          <button class="btn btn-warning">Track Orders</button>
+        </a>
       </div>
+      <!-- Logout button -->
       <div>
         <a href="../shared/logout.php">
           <button class="btn btn-danger">Logout</button>

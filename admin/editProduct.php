@@ -1,13 +1,17 @@
 <?php
 session_start();
 
+// Include connection to the database
 include "../shared/connection.php";
 
+// Get the product ID from the URL
 $pid = $_GET['pid'];
 
+// Fetch the product details for the given product ID
 $query = "SELECT * FROM product WHERE pid = $pid";
 $result = mysqli_query($conn, $query);
 
+// Check if the product exists
 if (mysqli_num_rows($result) > 0) {
     $product = mysqli_fetch_assoc($result);
 } else {
@@ -15,17 +19,22 @@ if (mysqli_num_rows($result) > 0) {
     exit();
 }
 
+// Handle form submission when the user updates the product details
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Sanitize and escape inputs to prevent SQL injection
     $pname = mysqli_real_escape_string($conn, $_POST['pname']);
     $pprice = (float)$_POST['pprice']; // Ensure price is treated as a float number
     $pdetail = mysqli_real_escape_string($conn, $_POST['pdetail']);
     $userid = $_SESSION['userid'];
 
+    // If a new image is uploaded, process the file
     if (!empty($_FILES['pdtimg']['tmp_name'])) {
         $source = $_FILES['pdtimg']['tmp_name'];
         $target = "../shared/images/" . basename($_FILES['pdtimg']['name']);
         
+        // Move the uploaded file to the target directory
         if (move_uploaded_file($source, $target)) {
+            // Update the product with the new image path
             $query = "UPDATE product 
                       SET name = '$pname', price = $pprice, detail = '$pdetail', impath = '$target'
                       WHERE pid = $pid AND owner = $userid";
@@ -34,13 +43,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             exit();
         }
     } else {
+        // Update the product without changing the image
         $query = "UPDATE product 
                   SET name = '$pname', price = $pprice, detail = '$pdetail'
                   WHERE pid = $pid AND owner = $userid";
     }
 
+    // Execute the update query and check for success
     if (mysqli_query($conn, $query)) {
-        header("Location: view.php"); 
+        header("Location: view.php"); // Redirect to the product view page after successful update
         exit();
     } else {
         echo "Error updating product: " . mysqli_error($conn);
@@ -79,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
             <div class="d-flex justify-content-between">
                 <button type="submit" class="btn btn-primary">Update Product</button>
-                <a href="view.php" class="btn btn-secondary">Cancel</a>
+                <a href="products.php" class="btn btn-secondary">Cancel</a>
             </div>
         </form>
     </div>
